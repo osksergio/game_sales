@@ -17,5 +17,17 @@ RSpec.describe User, type: :model do
     context 'when user has no username' do
       it { expect(build(:user, username: nil)).not_to be_valid }
     end
+
+    context 'when admin field is nil' do
+      it { expect(build(:user, is_admin: nil)).not_to be_valid }
+    end
+
+    context 'whe admin field false' do
+      it { expect(build(:user, is_admin: false)).to be_valid }
+    end
+
+    context 'when age is lower than 10' do
+      it { expect(build(:user, age: 9)).not_to be_valid }
+    end
   end
 end
