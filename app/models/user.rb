@@ -7,4 +7,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :username, presence: :true
+  validates :is_admin, inclusion: { in: [true, false] }
+  validates :age, numericality: { greater_than_or_equal_to: 10, message: 'Idade mínima 10 anos' }
 end
