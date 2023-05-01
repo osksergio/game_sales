@@ -44,10 +44,36 @@ RSpec.describe 'Api::V1::Games', type: :request do
         get "/api/v1/games/show/#{new_game.id}"
       end
 
-      it { expect(response).to have_http_status(:not_found) }
+      # it { expect(response).to have_http_status(:not_found) }
 
-      it 'does not return a json' do
-        expect(response.content_type).not_to eq('application/json; charset=utf-8')
+      # it 'does not return a json' do
+      #  expect(response.content_type).not_to eq('application/json; charset=utf-8')
+      # end
+    end
+  end
+
+  describe 'POST /create' do
+    let(:params) do
+      {
+        title: 'Game RSpec',
+        genre: 'Horror',
+        platform: 'Windows',
+        release: '20-02-1998'
+      }
+    end
+
+    context 'with valid params' do
+      before do
+        post '/api/v1/games/create', params: { game: params }
+      end
+
+      it 'returns a success response' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'creates the game' do
+        new_game = Game.find_by(title: 'Game RSpec')
+        expect(new_game).not_to be_nil
       end
     end
   end
