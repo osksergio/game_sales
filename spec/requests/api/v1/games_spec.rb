@@ -44,11 +44,11 @@ RSpec.describe 'Api::V1::Games', type: :request do
         get "/api/v1/games/show/#{new_game.id}"
       end
 
-      # it { expect(response).to have_http_status(:not_found) }
+      it { expect(response).to have_http_status(:not_found) }
 
-      # it 'does not return a json' do
-      #  expect(response.content_type).not_to eq('application/json; charset=utf-8')
-      # end
+      it 'does not return a json' do
+        expect(response.content_type).not_to eq('application/json; charset=utf-8')
+      end
     end
   end
 
