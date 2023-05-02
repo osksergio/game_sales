@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-#class Api::V1::GamesController < ApplicationController
-#
-#end
- 
 module Api
   module V1
     # controller games
@@ -16,6 +12,8 @@ module Api
       def show
         game = Game.find(params[:id])
         render json: game, status: :ok
+      rescue StandardError
+        head(:not_found)
       end
 
       def create
