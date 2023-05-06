@@ -91,5 +91,14 @@ RSpec.describe 'Api::V1::Games', type: :request do
         expect(deleted_game).to be_nil
       end
     end
+
+    context 'context when game does not exist' do
+      before do
+        game_x.destroy
+        delete "/api/v1/games/delete/#{game_x.id}"
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+    end
   end
 end
