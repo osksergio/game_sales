@@ -101,4 +101,24 @@ RSpec.describe 'Api::V1::Games', type: :request do
       it { expect(response).to have_http_status(:not_found) }
     end
   end
+
+  describe 'PUT /update' do
+    let(:game_y) { create(:game, title: 'Resident Evil 4') }
+    
+    context 'when game exists' do
+      before do
+        put "/api/v1/games/update/#{game_y.id}", params: { game: { title: 'Medal of Honor' } }
+      end
+
+      it 'responds with an ok status' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'changes title' do
+        updated_game = Game.find_by(id: game_y.id)
+        expect(updated_game.title).to eq('Medal of Honor')
+      end
+
+    end
+  end
 end
