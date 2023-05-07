@@ -33,7 +33,7 @@ module Api
       end
 
       def delete
-        game = game.find(params[:id])
+        game = Game.find(params[:id])
         game.destroy!
         render json: game, status: :ok
       rescue StandardError
